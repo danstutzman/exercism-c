@@ -17,7 +17,7 @@ int word_count(const char *input_text, word_count_word_t * words) {
   int num_words_so_far = 0;
   while (1) {
     char c = start_of_word[current_word_len];
-    if (c == ' ' || c == '\0') {
+    if (c == ' ' || c == '\0' || c == ',') {
       int found_word = 0;
       for (int i = 0; i < num_words_so_far; i++) {
         if (strncmp(words[i].text, start_of_word, current_word_len) == 0) {
