@@ -168,7 +168,6 @@ void test_word_count_handles_expanded_lists(void)
 
 void test_word_count_ignore_punctuation(void)
 {
-   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "car: carpet as java: javascript!!&@$%^&";
@@ -200,7 +199,6 @@ void test_word_count_ignore_punctuation(void)
 
 void test_word_count_include_numbers(void)
 {
-   TEST_IGNORE();
    int index = 0;
    int actual_word_count;
    char *input_text = "testing, 1, 2 testing";

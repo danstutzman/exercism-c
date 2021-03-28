@@ -5,6 +5,20 @@
 
 #define DEBUG 1
 
+int is_punctuation(char c) {
+  return c == ' ' ||
+         c == '\0' ||
+         c == ',' ||
+         c == '\n' ||
+         c == ':' ||
+         c == '!' ||
+         c == '@' ||
+         c == '$' ||
+         c == '%' ||
+         c == '^' ||
+         c == '&';
+}
+
 int word_count(const char *input_text, word_count_word_t * words) {
   if (DEBUG) {
     printf("input_text: %s\n", input_text);
@@ -18,7 +32,7 @@ int word_count(const char *input_text, word_count_word_t * words) {
   int past_initial_whitespace = 0;
   while (1) {
     char c = start_of_word[current_word_len];
-    if (c == ' ' || c == '\0' || c == ',' || c == '\n') {
+    if (is_punctuation(c)) {
       if (past_initial_whitespace) {
         int found_word = 0;
         for (int i = 0; i < num_words_so_far; i++) {
