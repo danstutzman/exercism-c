@@ -10,6 +10,8 @@ int word_count(const char *input_text, word_count_word_t * words) {
     printf("input_text: %s\n", input_text);
   }
 
+  memset(words, 0, sizeof(word_count_word_t) * MAX_WORDS);
+
   const char* start_of_word = input_text;
   int current_word_len = 0;
   int num_words_so_far = 0;
