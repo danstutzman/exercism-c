@@ -62,6 +62,10 @@ int word_count(const char *input_text, word_count_word_t * words) {
     if (is_punctuation(c) && !(c == '\'' && current_word_len > 0 &&
           !is_punctuation(start_of_word[current_word_len + 1]))) {
       if (past_initial_whitespace) {
+        if (current_word_len > MAX_WORD_LENGTH) {
+          return EXCESSIVE_LENGTH_WORD;
+        }
+
         int found_word = 0;
         for (int i = 0; i < num_words_so_far; i++) {
           if (strncmpci(words[i].text, start_of_word, current_word_len) == 0) {

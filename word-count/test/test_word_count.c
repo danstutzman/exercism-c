@@ -339,7 +339,6 @@ void test_word_count_from_example(void)
 
 void test_max_length_word(void)
 {
-   TEST_IGNORE();
    int actual_word_count;
    int index = 0;
    char *input_text =
@@ -371,7 +370,6 @@ void test_max_length_word(void)
 
 void test_excessive_length_word(void)
 {
-   TEST_IGNORE();
    int actual_word_count;
    int index = 0;
    char *input_text =
