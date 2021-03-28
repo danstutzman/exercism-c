@@ -17,7 +17,8 @@ int is_punctuation(char c) {
          c == '$' ||
          c == '%' ||
          c == '^' ||
-         c == '&';
+         c == '&' ||
+         c == '.';
 }
 
 int strncmpci(const char * str1, const char * str2, size_t num) {
