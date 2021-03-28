@@ -77,6 +77,9 @@ int word_count(const char *input_text, word_count_word_t * words) {
         }
 
         if (!found_word) {
+          if (num_words_so_far >= MAX_WORDS) {
+            return EXCESSIVE_NUMBER_OF_WORDS;
+          }
           copy_lowercase(words[num_words_so_far].text, start_of_word,
               current_word_len);
           words[num_words_so_far].count = 1;
