@@ -1,4 +1,5 @@
 .*.swp
 /tests.out
 /tests.out.dSYM
-
+/word_count
+/word_count.dSYM

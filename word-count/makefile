@@ -20,6 +20,9 @@ memcheck: tests.out
 clean:
 	rm -rf *.o *.out *.out.dSYM
 
+word_count: src/word_count.c
+	@$(CC) $(CFLAGS) src/word_count.c -o word_count
+
 tests.out: test/test_word_count.c src/word_count.c src/word_count.h
 	@echo Compiling $@
 	@$(CC) $(CFLAGS) src/word_count.c test/vendor/unity.c test/test_word_count.c -o tests.out
