@@ -22,12 +22,17 @@ static void check_solution(word_count_word_t * expected_solution,
                            int actual_word_count)
 {
    // All words counted?
+   //printf("Checking all words counted, expecting %d\n", expected_word_count);
    TEST_ASSERT_EQUAL(expected_word_count, actual_word_count);
 
    // now test the word count for the words...
    for (int index = 0; index < MAX_WORDS; index++) {
+      //printf("Checking word %d count\n", index);
       TEST_ASSERT_EQUAL(expected_solution[index].count,
                         actual_solution[index].count);
+      //printf("Checking word %d text '%s' against '%s'\n", index,
+      //    actual_solution[index].text,
+      //    expected_solution[index].text);
       TEST_ASSERT_EQUAL_UINT8_ARRAY(expected_solution[index].text,
                                     actual_solution[index].text, STRING_SIZE);
    }
