@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,6 +20,30 @@ int is_punctuation(char c) {
          c == '&';
 }
 
+int strncmpci(const char * str1, const char * str2, size_t num) {
+  int ret_code = 0;
+  size_t chars_compared = 0;
+
+  while ((chars_compared < num) && (*str1 || *str2)) {
+    ret_code = tolower((int)(*str1)) - tolower((int)(*str2));
+    if (ret_code != 0) {
+      break;
+    }
+    chars_compared++;
+    str1++;
+    str2++;
+  }
+
+  return ret_code;
+}
+
+void copy_lowercase(char* to, const char* from, int length) {
+  for (int i = 0; i < length; i++) {
+    to[i] = tolower(from[i]);
+  }
+  to[length] = '\0';
+}
+
 int word_count(const char *input_text, word_count_word_t * words) {
   if (DEBUG) {
     printf("input_text: %s\n", input_text);
@@ -36,9 +61,8 @@ int word_count(const char *input_text, word_count_word_t * words) {
       if (past_initial_whitespace) {
         int found_word = 0;
         for (int i = 0; i < num_words_so_far; i++) {
-          if (strncmp(words[i].text, start_of_word, current_word_len) == 0) {
-            strncpy(words[i].text, start_of_word, current_word_len);
-            words[i].text[current_word_len] = '\0';
+          if (strncmpci(words[i].text, start_of_word, current_word_len) == 0) {
+            copy_lowercase(words[i].text, start_of_word, current_word_len);
             words[i].count += 1;
             found_word = 1;
             break;
@@ -46,9 +70,8 @@ int word_count(const char *input_text, word_count_word_t * words) {
         }
 
         if (!found_word) {
-          strncpy(words[num_words_so_far].text,
-              start_of_word, current_word_len);
-          words[num_words_so_far].text[current_word_len] = '\0';
+          copy_lowercase(words[num_words_so_far].text, start_of_word,
+              current_word_len);
           words[num_words_so_far].count = 1;
           num_words_so_far += 1;
         }
