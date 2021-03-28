@@ -3,7 +3,7 @@
 #include <string.h>
 #include "word_count.h"
 
-#define DEBUG 0
+#define DEBUG 1
 
 int word_count(const char *input_text, word_count_word_t * words) {
   if (DEBUG) {
@@ -15,34 +15,40 @@ int word_count(const char *input_text, word_count_word_t * words) {
   const char* start_of_word = input_text;
   int current_word_len = 0;
   int num_words_so_far = 0;
+  int past_initial_whitespace = 0;
   while (1) {
     char c = start_of_word[current_word_len];
-    if (c == ' ' || c == '\0' || c == ',') {
-      int found_word = 0;
-      for (int i = 0; i < num_words_so_far; i++) {
-        if (strncmp(words[i].text, start_of_word, current_word_len) == 0) {
-          strncpy(words[i].text, start_of_word, current_word_len);
-          words[i].text[current_word_len] = '\0';
-          words[i].count += 1;
-          found_word = 1;
-          break;
+    if (c == ' ' || c == '\0' || c == ',' || c == '\n') {
+      if (past_initial_whitespace) {
+        int found_word = 0;
+        for (int i = 0; i < num_words_so_far; i++) {
+          if (strncmp(words[i].text, start_of_word, current_word_len) == 0) {
+            strncpy(words[i].text, start_of_word, current_word_len);
+            words[i].text[current_word_len] = '\0';
+            words[i].count += 1;
+            found_word = 1;
+            break;
+          }
         }
-      }
 
-      if (!found_word) {
-        strncpy(words[num_words_so_far].text, start_of_word, current_word_len);
-        words[num_words_so_far].text[current_word_len] = '\0';
-        words[num_words_so_far].count = 1;
-        num_words_so_far += 1;
+        if (!found_word) {
+          strncpy(words[num_words_so_far].text,
+              start_of_word, current_word_len);
+          words[num_words_so_far].text[current_word_len] = '\0';
+          words[num_words_so_far].count = 1;
+          num_words_so_far += 1;
+        }
       }
 
       start_of_word += current_word_len + 1;
       current_word_len = 0;
+      past_initial_whitespace = 0;
 
       if (c == '\0') {
         break;
       }
     } else {
+      past_initial_whitespace = 1;
       current_word_len += 1;
     }
   }
